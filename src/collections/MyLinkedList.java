@@ -8,7 +8,7 @@ public class MyLinkedList <T> implements MyList {
         Node prev;
         Node next;
         T value;
-        public Node (Node prev, T value, Node next) {
+        public Node () {
             this.value = value;
             this.prev = prev;
             this.next = next;
@@ -31,7 +31,7 @@ public class MyLinkedList <T> implements MyList {
     @Override
     public boolean add(Object e) {
         final Node l = last;
-        final Node newNode = new Node(l, (T) e, null);
+        final Node newNode = new Node();
         last = newNode;
         if(l == null)
             first = newNode;
@@ -41,25 +41,8 @@ public class MyLinkedList <T> implements MyList {
         return false;
     }
     public void add(int index, T value) {
-    checkPositionIndex(index);
-        if (index == size) {
-        final Node l = last;
-        final Node newNode = new Node(l, null, value);
-        last = newNode;
-        if (l == null) {
-            first = newNode;
-        } else {
-            l.next = newNode;
-        }
+        Node newNode = new Node();
 
-    }else {
-        Node x = node(index);
-        Node p = x.prev;
-        Node newNode = new Node(p,x,value);
-        p.next = newNode;
-        x.prev = newNode;
-    }
-    size++;
 }
 
     @Override
@@ -77,10 +60,10 @@ public class MyLinkedList <T> implements MyList {
             if (index == 0) {
                 n.prev = null;
                 first = n;
-            } else if (index == (size - 1)) {
-                p.next = n;
-                last = p;
-            } else {
+                } else if (index == (size - 1)) {
+                    p.next = n;
+                    last = p;
+                } else {
                 n.prev = p;
                 p.next = n;
                 size--;
