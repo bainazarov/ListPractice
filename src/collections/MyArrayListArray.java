@@ -1,46 +1,61 @@
 package collections;
-public class MyArrayListArray<E> implements MyList {
-        private Object[] values = new Object[0];
-        @Override
-        public boolean add(Object e) {
-                try {
-                        Object[] temp = values;
-                        values = (Object[]) new Object[temp.length + 1];
-                        System.arraycopy(temp, 0, values, 0, temp.length);
-                        values[values.length - 1] = e;
-                        return true;
-                } catch (ClassCastException ex) {
-                        ex.printStackTrace();
-                }
-                return false;
+
+import java.util.Arrays;
+
+public class MyArrayListArray<E> implements MyList<E> {
+        private static final int DEFAULT_CAPACITY = 10;
+        private Object[] elements;
+        private int size;
+
+        public MyArrayListArray() {
+                elements = new Object[DEFAULT_CAPACITY];
+                size = 0;
         }
 
         @Override
-        public void set(int index, Object element) {
-                values[index] = element;
+        public void add(E element) {
+                if (size == elements.length) {
+                        increaseCapacity();
+                }
+                elements[size] = element;
+                size++;
         }
 
         @Override
-        public Object remove(int index) {
-                try {
-                        Object[] temp = values;
-                        values = (Object[]) new Object[temp.length + 1];
-                        System.arraycopy(temp, 0, values, 0, temp.length);
-                        int amountElemAfterIndex = temp.length - index - 1;
-                        System.arraycopy(temp, index + 1, values, index, amountElemAfterIndex);
-                } catch (ClassCastException ex) {
-                        ex.printStackTrace();
+        public void remove(int index) {
+                if (index < 0 || index >= size) {
+                        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
                 }
-                return null;
+                for (int i = index; i < size - 1; i++) {
+                        elements[i] = elements[i + 1];
+                }
+                elements[size - 1] = null;
+                size--;
+        }
+
+        @Override
+        public void set(int index, E element) {
+                if (index < 0 || index >= size) {
+                        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+                }
+                elements[index] = element;
+        }
+
+        @Override
+        public E get(int index) {
+                if (index < 0 || index >= size) {
+                        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+                }
+                return (E) elements[index];
         }
 
         @Override
         public int size() {
-                return values.length;
+                return size;
         }
 
-        @Override
-        public Object get(int index) {
-                return values[index];
+        private void increaseCapacity() {
+                int newCapacity = elements.length * 2;
+                elements = Arrays.copyOf(elements, newCapacity);
         }
 }

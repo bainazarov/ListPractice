@@ -5,41 +5,41 @@ import java.util.LinkedList;
 
 public class TestOfArray {
     public static void main(String[] args) {
-        LinkedList<String> listOfArray = new LinkedList<>();
-        listOfArray.add("first");
-        listOfArray.add("second");
-        listOfArray.add("third");
+        LinkedList<String> list = new LinkedList<>();
+        list.add("first");
+        list.add("second");
+        list.add("third");
 
-        int size = listOfArray.size();
+        int size = list.size();
         if(size == 3) {
             System.out.println("Test passed");
         } else {
             System.out.println("Test failed");
         }
 
-        if (listOfArray.get(1) == "second") {
+        if (list.get(1) == "second") {
             System.out.println("Test passed");
         } else {
             System.out.println("Test failed");
         }
 
-        listOfArray.remove(2);
-        size = listOfArray.size();
+        list.remove(2);
+        size = list.size();
         if ( size == 2) {
             System.out.println("Test passed");
         } else {
             System.out.println("Test failed");
         }
 
-        listOfArray.add(2, "third");
-        if (listOfArray.get(2) == "third") {
+        list.add(2, "third");
+        if (list.get(2) == "third") {
             System.out.println("Test passed");
         } else {
             System.out.println("Test failed");
         }
 
-        listOfArray.set(0, "zero");
-        if (listOfArray.get(0) == "zero") {
+        list.set(0, "zero");
+        if (list.get(0) == "zero") {
             System.out.println("Test passed");
         } else {
             System.out.println("Test failed");

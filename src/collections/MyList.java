@@ -1,9 +1,9 @@
 package collections;
 
 public interface MyList<T> {
-    boolean add(T e);
-    void set(int index, T element);
-    T remove(int index);
+    void add(T value);
+    void set(int index, T value);
     int size();
+    void remove(int index);
     T get(int index);
 }

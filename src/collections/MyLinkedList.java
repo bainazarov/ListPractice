@@ -1,98 +1,97 @@
 package collections;
 
-public class MyLinkedList <T> implements MyList {
-    private Node first;
-    private Node last;
-    int size = 0;
-    private class Node {
-        Node prev;
-        Node next;
-        T value;
-        public Node () {
+
+public class MyLinkedList <T> implements MyList<T> {
+    private Node<T> head;
+    private Node<T> tail;
+    private int size;
+
+    private static class Node<T> {
+        private T value;
+        private Node<T> prev;
+        private Node<T> next;
+
+        public Node(T value) {
             this.value = value;
-            this.prev = prev;
-            this.next = next;
-
-        }
-        public Node(Node p, Node next, Object element) {
-
+            this.prev = null;
+            this.next = null;
         }
     }
 
-    private boolean isPositionIndex(int index) {//+
-        return index >= 0 && index <= size;
-    }
-
-    private void checkPositionIndex(int index) {//+
-        if (!isPositionIndex(index)) {
-            System.out.println("Несуществующий индекс ");
-        }
-    }
     @Override
-    public boolean add(Object e) {
-        final Node l = last;
-        final Node newNode = new Node();
-        last = newNode;
-        if(l == null)
-            first = newNode;
-        else
-            l.next = newNode;
+    public void add(T value) {
+        Node<T> newNode = new Node<>(value);
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
+        }
         size++;
-        return false;
     }
-    public void add(int index, T value) {
-        Node newNode = new Node();
-
-}
 
     @Override
-    public void set(int index, Object element) {
-        checkPositionIndex(index);
-        Node x = node(index);
-        T oldVal = x.value;
-        x.value = (T) element;
-    }
-    @Override
-    public T remove(int index) {
-            Node x = node(index);
-            Node n = x.next;
-            Node p = x.prev;
-            if (index == 0) {
-                n.prev = null;
-                first = n;
-                } else if (index == (size - 1)) {
-                    p.next = n;
-                    last = p;
-                } else {
-                n.prev = p;
-                p.next = n;
-                size--;
-            }
-        return (T) x.value;
-    }
-    Node node(int index) {
-    if (index < (size >> 1)) {
-        Node x = first;
-        for (int i = 0; i < index; i++) {
-            x = x.next;
+    public void set(int index, T value) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
         }
-        return x;
-    } else {
-        Node x = last;
-        for (int i = size - 1; i > index; i--) {
+        Node<T> currentNode = getNode(index);
+        currentNode.value = value;
+    }
 
-            x  = x.prev;
-        }
-        return x;
-    }
-}
     @Override
     public int size() {
         return size;
     }
+
+    @Override
+    public void remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        Node<T> currentNode = getNode(index);
+
+        if (currentNode == head) {
+            head = currentNode.next;
+            if (head != null) {
+                head.prev = null;
+            }
+        } else if (currentNode == tail) {
+            tail = currentNode.prev;
+            if (tail != null) {
+                tail.next = null;
+            }
+        } else {
+            currentNode.prev.next = currentNode.next;
+            currentNode.next.prev = currentNode.prev;
+        }
+        size--;
+    }
+
     @Override
     public T get(int index) {
-        checkPositionIndex(index);
-        return (T) node(index).value;
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        Node<T> currentNode = getNode(index);
+        return currentNode.value;
+    }
+
+    private Node<T> getNode(int index) {
+        Node<T> currentNode;
+        if (index <= size / 2) {
+            currentNode = head;
+            for (int i = 0; i < index; i++) {
+                currentNode = currentNode.next;
+            }
+        } else {
+            currentNode = tail;
+            for (int i = size - 1; i > index; i--) {
+                currentNode = currentNode.prev;
+            }
+        }
+        return currentNode;
     }
 }
