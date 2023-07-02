@@ -3,7 +3,7 @@ package collections;
 
 public class MyLinkedList <T> implements MyList<T> {
     private Node<T> head;
-    private Node<T> tail;
+    private Node<T> last;
     private int size;
 
     private static class Node<T> {
@@ -23,11 +23,11 @@ public class MyLinkedList <T> implements MyList<T> {
         Node<T> newNode = new Node<>(value);
         if (head == null) {
             head = newNode;
-            tail = newNode;
+            last = newNode;
         } else {
-            tail.next = newNode;
-            newNode.prev = tail;
-            tail = newNode;
+            last.next = newNode;
+            newNode.prev = last;
+            last = newNode;
         }
         size++;
     }
@@ -58,10 +58,10 @@ public class MyLinkedList <T> implements MyList<T> {
             if (head != null) {
                 head.prev = null;
             }
-        } else if (currentNode == tail) {
-            tail = currentNode.prev;
-            if (tail != null) {
-                tail.next = null;
+        } else if (currentNode == last) {
+            last = currentNode.prev;
+            if (last != null) {
+                last.next = null;
             }
         } else {
             currentNode.prev.next = currentNode.next;
@@ -87,7 +87,7 @@ public class MyLinkedList <T> implements MyList<T> {
                 currentNode = currentNode.next;
             }
         } else {
-            currentNode = tail;
+            currentNode = last;
             for (int i = size - 1; i > index; i--) {
                 currentNode = currentNode.prev;
             }
