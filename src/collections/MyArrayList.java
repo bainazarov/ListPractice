@@ -2,12 +2,12 @@ package collections;
 
 import java.util.Arrays;
 
-public class MyArrayListArray<E> implements MyList<E> {
+public class MyArrayList<E> implements MyList<E> {
         private static final int DEFAULT_CAPACITY = 10;
         private Object[] elements;
         private int size;
 
-        public MyArrayListArray() {
+        public MyArrayList() {
                 elements = new Object[DEFAULT_CAPACITY];
                 size = 0;
         }
