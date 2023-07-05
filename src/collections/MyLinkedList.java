@@ -34,9 +34,6 @@ public class MyLinkedList <T> implements MyList<T> {
 
     @Override
     public void set(int index, T value) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
         Node<T> currentNode = getNode(index);
         currentNode.value = value;
     }
@@ -48,9 +45,6 @@ public class MyLinkedList <T> implements MyList<T> {
 
     @Override
     public void remove(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
         Node<T> currentNode = getNode(index);
 
         if (currentNode == head) {
@@ -72,9 +66,6 @@ public class MyLinkedList <T> implements MyList<T> {
 
     @Override
     public T get(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
         Node<T> currentNode = getNode(index);
         return currentNode.value;
     }

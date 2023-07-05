@@ -23,9 +23,6 @@ public class MyArrayList<E> implements MyList<E> {
 
         @Override
         public void remove(int index) {
-                if (index < 0 || index >= size) {
-                        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-                }
                 for (int i = index; i < size - 1; i++) {
                         elements[i] = elements[i + 1];
                 }
@@ -35,17 +32,11 @@ public class MyArrayList<E> implements MyList<E> {
 
         @Override
         public void set(int index, E element) {
-                if (index < 0 || index >= size) {
-                        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-                }
                 elements[index] = element;
         }
 
         @Override
         public E get(int index) {
-                if (index < 0 || index >= size) {
-                        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-                }
                 return (E) elements[index];
         }
 
