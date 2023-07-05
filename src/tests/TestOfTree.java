@@ -20,6 +20,8 @@ public class TestOfTree {
         System.out.println("Поиск в ширину");
         tree.printTreeWidth();
 
+        System.out.println();
+
         System.out.println("Удаление значения 5");
         tree.remove(5);
         tree.printTreeWidth();
